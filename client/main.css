@@ -1,0 +1,21 @@
+/* CSS declarations go here */
+.center {
+    margin: auto;
+    margin-top:10%;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}
+.input{
+    width: 260px;
+    height: 28px;
+}
+h6
+{   text-decoration-color: blue;
+   
+    color: red;
+}
+.radio
+{
+    padding:10px;
+}
