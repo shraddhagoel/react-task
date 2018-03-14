@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Dropdown from 'react-dropdown';
 import Test from './Test.json'
-
+import Form2 from './form2.js'
 
 import 'react-dropdown/style.css'
 
@@ -15,16 +15,16 @@ export default class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-                selectedOption: 'Female',
-                fullname: '',
-                email: '',
-                formErrors: {email: '', fullname: ''},
-                emailValid: false,
-                fullnameValid: false,
-                formValid: false,
-                country: '',
-                message: '',
-                messagevalid: false
+            selectedOption: 'Female',
+            fullname: '',
+            email: '',
+            formErrors: { email: '', fullname: '' },
+            emailValid: false,
+            fullnameValid: false,
+            formValid: false,
+            country: '',
+            message: '',
+            messagevalid: false
 
 
         }
@@ -41,26 +41,23 @@ export default class App extends Component {
     //     if 
     // }
 
-    handleOptionChange(e)
-    {
+    handleOptionChange(e) {
         this.setState({
             selectedOption: e.target.value
 
-          },()=>  console.log());
-         
+        }, () => console.log());
+
 
     }
-    handleSelectionChange(e)
-    {
-        
+    handleSelectionChange(e) {
+
         this.setState({
             country: e.value
 
         })
     }
-    componentWillMount()
-    {
-        
+    componentWillMount() {
+
         this.setState({
             fullname: Test.Name,
             email: Test.Email
@@ -68,78 +65,82 @@ export default class App extends Component {
         })
 
     }
-    shouldComponentUpdate()
-    {
-    console.log("-------------should update---------");
-    if(this.state.fullname.length<15)
-    {   console.log("Yes");
-        return true;
-    }
-    else
-    {   console.log("No");
-    let {fullnameValid,formErrors } = this.state
-    formErrors.fullname = 'Max length is 15';
-    fullnameValid = false;
-        return false;
-    }
-    }
-
-    componentDidUpdate(prevProps, prevState)
-    {       console.log("-------------did update---------");
-        let name="Diksha";
-       if(name==this.state.fullname && this.state.messagevalid==false)
-       {
-
-        this.setState({
-            message: 'Success',
-            messagevalid: true
-
-        })
-        
-       
-       }
-
-    }
-    inputvalid(e)
-    {
-    let name= e.target.name
-    let value= e.target.value
-    this.validateField(name, value)
-    
-    
-    this.setState({[name]: value });
-    }
-   
-    validateField(fieldName, value) {
-  
-        let { emailValid, fullnameValid, formErrors } = this.state
-      
-        switch(fieldName) {
-          case 'email':
-            emailValid = (/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i).test(value);
-            formErrors.email = emailValid ? '' : 'Invalid Email! Please Check';
-            //  console.log('>>>>>>>>>>>>',emailValid);
-
-            break;
-          case 'fullname':
-          fullnameValid = (/^[a-z ,.'-]+$/i).test(value);
-            formErrors.fullname = fullnameValid ? '': ' Invalid Name! Please Check';
-            // console.log('>>>>>>>>>>>>',fullnameValid);
-
-            break;
-          default:
-            break;
+    shouldComponentUpdate() {
+        console.log("-------------should update---------");
+        if (this.state.fullname.length < 15) {
+            console.log("Yes");
+            return true;
         }
-        this.setState({formErrors: formErrors,
-                        emailValid: emailValid,
-                        fullnameValid: fullnameValid,
-                        formValid:this.state.emailValid && this.state.fullnameValid
-                      });
-                    //   console.log(this.state.emailValid && this.state.fullnameValid);
-      }
-      
+        else {
+            console.log("No");
+            let { fullnameValid, formErrors } = this.state
+            formErrors.fullname = 'Max length is 15';
+            fullnameValid = false;
+            return false;
+        }
+    }
 
-    
+    componentDidUpdate(prevProps, prevState) {
+        console.log("-------------did update---------");
+        let name = "Diksha";
+        if (name == this.state.fullname && this.state.message!='Success') {
+
+            this.setState({
+                message: 'Success',
+                messagevalid: true
+
+            })
+        }
+        // else if (name!= this.state.fullname && this.state.messagevalid == true){
+        //     this.setState({
+        //         message: '',
+        //         messagevalid: false
+
+        //     })
+    // }
+
+    }
+    inputvalid(e) {
+        let name = e.target.name
+        let value = e.target.value
+        this.validateField(name, value)
+
+
+        this.setState({ [name]: value });
+    }
+
+    validateField(fieldName, value) {
+
+        let { emailValid, fullnameValid, formErrors } = this.state
+
+        switch (fieldName) {
+            case 'email':
+                emailValid = (/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i).test(value);
+                formErrors.email = emailValid ? '' : 'Invalid Email! Please Check';
+                //  console.log('>>>>>>>>>>>>',emailValid);
+
+                break;
+            case 'fullname':
+                fullnameValid = (/^[a-z ,.'-]+$/i).test(value);
+                formErrors.fullname = fullnameValid ? '' : ' Invalid Name! Please Check';
+                // console.log('>>>>>>>>>>>>',fullnameValid);
+
+                break;
+            default:
+                break;
+        }
+        this.setState({
+            formErrors: formErrors,
+            emailValid: emailValid,
+            fullnameValid: fullnameValid,
+            message :'',
+            formValid: this.state.emailValid && this.state.fullnameValid
+        });
+        //   console.log(this.state.emailValid && this.state.fullnameValid);
+    }
+
+
+
 
     render() {
         console.log("----------render---------");
@@ -147,11 +148,11 @@ export default class App extends Component {
             <header><center className="center">
                 <h1>FORM</h1>
                 <form className="new-task">
-                    <input type="text" className="input" name="fullname" placeholder="Name" onChange= {this.inputvalid } value = {this.state.fullname}/>
+                    <input type="text" className="input" name="fullname" placeholder="Name" onChange={this.inputvalid} defaultValue={this.state.fullname} />
                     <h6>{this.state.formErrors.fullname} </h6>
                     <h3>{this.state.message}</h3>
 
-                    <input type="text" className="input" name="email" placeholder="Email" onChange= {this.inputvalid } value = {this.state.email} />
+                    <input type="text" className="input" name="email" placeholder="Email" onChange={this.inputvalid} value={this.state.email} />
                     <h6> {this.state.formErrors.email} </h6>
                     <Dropdown options={options} onChange={this.handleSelectionChange} value={defaultOption} placeholder="Select an option" />
                     <div className="radio">
@@ -167,25 +168,20 @@ export default class App extends Component {
                     </div>
 
 
-                  
-                 <br />   <button type="button" disabled={!this.state.formValid} >Submit</button>
+
+                    <br />   <button type="button" disabled={!this.state.formValid} >Submit</button>
 
                 </form></center>
-                <center>
-                   
 
-                    <h3>{this.state.fullname}</h3>
-                    <h3>{this.state.email}</h3>
-                    <h3>{this.state.selectedOption}</h3>
-                    <h3>{this.state.country}</h3>
-                    </center>
+                <Form2 fullname={ this.state.fullname} email= {this.state.email} selectedOption = {this.state.selectedOption} country = {this.state.country} />
+          
             </header>
-                
+
 
         );
     }
 
-    
+
 }
 
-  
+
